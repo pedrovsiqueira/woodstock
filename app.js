@@ -32,6 +32,13 @@ const band3 = new Band( {
     style: 'Rock'
 } )
 
+const stage1 = new Stage({
+    name: "Rockinator",
+    location: "Main Area"
+})
+
+stage1.save()
+
 Band
     .insertMany( [ band1, band2, band3 ] )
     .then( response => {
