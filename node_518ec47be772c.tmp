@@ -1,0 +1,58 @@
+//requerer o mongoose
+const mongoose = require( 'mongoose' )
+
+mongoose
+    .connect( 'mongodb://localhost/woodstock-app', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    } )
+    .then( _ => console.log( 'connected to database' ) )
+    .catch( error => console.log( error ) )
+
+const Band = mongoose.model( 'Band', {
+    name: String,
+    style: String
+} )
+
+const Stage = mongoose.model( 'Stage', {
+    name: String,
+    style: String
+} )
+
+//instanciar band
+
+const band1 = new Band( {
+    name: 'Linkin Park',
+    style: 'Rock'
+} )
+
+const band2 = new Band( {
+    name: 'Three Doors Down',
+    style: 'Rock'
+} )
+
+const band3 = new Band( {
+    name: 'Guns and roses',
+    style: 'Rock'
+} )
+
+Band
+    .insertMany([band1, band2, band3])
+    .then(response => console.log(`${response.length} bands added`, response))
+    .catch(error => console.log(error))
+
+    const allBands = () => {
+        Band
+        .find()
+        .then(bands => {
+            let str = ''
+            bands.forEach((bands, index) => {
+                str += `${index}: ${bands.name} - ${bands.style}`
+            })
+            return str
+        })
+        .catch(error => console.log(error))
+    }
+
+
+    console.log(allBands)
